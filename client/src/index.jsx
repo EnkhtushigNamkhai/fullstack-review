@@ -61,6 +61,9 @@ class App extends React.Component {
       type: 'GET',
       url: 'http://localhost:1128/repos',
       success: function(data) {
+        if (data.length === 0) {
+          this.databaseEmpty = true;
+        }
         callback(data);
       },
       error: function(err) {
@@ -92,7 +95,7 @@ class App extends React.Component {
           console.log('setting state HERE');
           this.setState({repos: data});
         }.bind(this));
-        
+
       }.bind(this),
       error: function(err) {
         console.log(' Aw there was an error :/ ');
