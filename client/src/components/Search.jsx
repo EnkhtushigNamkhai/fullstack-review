@@ -15,7 +15,12 @@ class Search extends React.Component {
   }
 
   search(e) {
+    console.log('setting it to empty');
+    this.setState({term: ''}, function() {
+      console.log('setting state is done');
+    });
     this.props.onSearch(this.state.term);
+    //clear the input field?
   }
 
   render() {

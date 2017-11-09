@@ -9,7 +9,7 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (repos) => {
+let save = (repos, callback) => {
   // This function should save a repo or repos to the MongoDB
   for (var i = 0; i < repos.length; i++) {
     var repoObj = repos[i]
@@ -20,12 +20,35 @@ let save = (repos) => {
     console.log(str);
 
     var repoInstance = new Repo({username: userName, repoUrl: repoURL, forks:numForks});
+    
     repoInstance.save(function (err, repoInstance) {
       if (err) {
-        console.log('IT ERRORED')
+        console.log('HERE IS YOUR ERROR: ', err);
       };
     });
   }
+  callback();
 }
 
+//querying the database
+let getTopRepos = (callback) => {
+  console.log('goes to GETTOPREPOS');
+
+  Repo.
+  find().
+  limit(25).
+  sort({ forks: -1 }).
+  select('username repoUrl forks').
+  exec(function (err, repos) {
+    if (err) {
+      // console.log('Error in retrieving');
+      callback(err, null)
+    } else {
+      // console.log('GOT THE REPOS!!!', repos);
+      callback(null, repos);
+    }
+  });
+}
+
+module.exports.getTopRepos = getTopRepos;
 module.exports.save = save;
