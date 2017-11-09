@@ -10,12 +10,25 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
   search (term) {
-    console.log(`${term} was searched`);
-    // TODO
+    //term is the username that we want to search
+    //so want to make a post request to the server saying I want this username repo
+    console.log(`${term} WAS SEARCHED`);
+    var obj = {
+      type: 'POST',
+      url: 'http://localhost:1128/repos',
+      data: JSON.stringify({username: term}),
+      contentType: 'application/json',
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(err) {
+        console.log(' Aw there was an error :/ ');
+      }
+    };
+    $.ajax(obj);
   }
 
   render () {
