@@ -59,7 +59,7 @@ class App extends React.Component {
 
     var obj = {
       type: 'GET',
-      url: 'https://mighty-shore-68538.herokuapp.com/',
+      url: 'https://mighty-shore-68538.herokuapp.com/repos',
       success: function(data) {
         if (data.length === 0) {
           this.databaseEmpty = true;
@@ -84,7 +84,7 @@ class App extends React.Component {
 
     var obj = {
       type: 'POST',
-      url: 'https://mighty-shore-68538.herokuapp.com/',
+      url: 'https://mighty-shore-68538.herokuapp.com/repos',
       data: JSON.stringify({username: term}),
       contentType: 'application/json',
       success: function(data) {
